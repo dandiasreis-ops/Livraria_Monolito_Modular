@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: Livraria_Monolito_Modular
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
