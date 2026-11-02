@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}Livro não encontrado{% endblock %}
+{% block content %}<section class="empty error"><h1>Livro não encontrado</h1><p>Esse livro não existe no catálogo demonstrativo.</p><a class="button" href="{{ url_for('catalog.index') }}">Voltar ao catálogo</a></section>{% endblock %}

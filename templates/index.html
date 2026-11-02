@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Catálogo | Ponto & Página{% endblock %}
+{% block content %}
+<section class="hero"><p class="eyebrow">CATÁLOGO DA LIVRARIA</p><h1>Encontre seu <span>próximo livro.</span></h1><p>Pesquise títulos e autores, confira os detalhes e verifique a disponibilidade antes de visitar a loja.</p></section>
+<form class="search" method="get" action="{{ url_for('catalog.index') }}">
+  <label class="sr" for="q">Título ou autor</label><input id="q" name="q" type="search" value="{{ query }}" placeholder="Buscar por título ou autor...">
+  <label class="sr" for="category">Categoria</label><select id="category" name="category"><option value="">Todas as categorias</option>{% for c in categories %}<option value="{{ c }}" {% if selected_category == c %}selected{% endif %}>{{ c }}</option>{% endfor %}</select>
+  <button>Buscar livros</button>{% if query or selected_category %}<a class="clear" href="{{ url_for('catalog.index') }}">Limpar</a>{% endif %}
+</form>
+<section class="catalog"><div class="section-head"><div><p class="eyebrow">EXPLORE A ESTANTE</p><h2>{% if query or selected_category %}Resultados da busca{% else %}Livros em destaque{% endif %}</h2></div><span>{{ books|length }} de {{ total }} livros</span></div>
+{% if books %}<div class="grid">{% for book in books %}<article class="card">
+<div class="cover cover-{{ (book.id % 5) + 1 }}"><small>{{ book.category }}</small><strong>{{ book.title }}</strong><span>{{ book.author }}</span><i>✳</i></div>
+<div class="card-body"><small class="category">{{ book.category }}</small><h3>{{ book.title }}</h3><p>{{ book.author }}</p><div class="row"><strong>R$ {{ "%.2f"|format(book.price)|replace(".", ",") }}</strong>{% if book.available %}<span class="stock yes">● Em estoque</span>{% else %}<span class="stock no">● Indisponível</span>{% endif %}</div><a class="outline" href="{{ url_for('catalog.details', book_id=book.id) }}">Ver detalhes →</a></div>
+</article>{% endfor %}</div>{% else %}<div class="empty"><h3>Nenhum livro encontrado</h3><p>Tente outro título, autor ou categoria.</p><a class="button" href="{{ url_for('catalog.index') }}">Ver todos os livros</a></div>{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Ponto & Página{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+<header class="top"><a class="brand" href="{{ url_for('catalog.index') }}"><span class="mark">P</span> Ponto <em>&</em> Página</a><span>Sua próxima leitura começa aqui</span></header>
+<main class="container">{% block content %}{% endblock %}</main>
+<footer>Projeto acadêmico · Exercício 7.2 — Arquitetura MVC</footer>
+</body></html>

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ book.title }} | Ponto & Página{% endblock %}
+{% block content %}
+<nav class="crumb"><a href="{{ url_for('catalog.index') }}">Catálogo</a> / {{ book.title }}</nav>
+<section class="details"><div class="cover detail-cover cover-{{ (book.id % 5) + 1 }}"><small>{{ book.category }}</small><strong>{{ book.title }}</strong><span>{{ book.author }}</span><i>✳</i></div>
+<div><p class="eyebrow">{{ book.category }}</p><h1>{{ book.title }}</h1><p class="author">por <strong>{{ book.author }}</strong></p><p class="description">{{ book.description }}</p><div class="detail-price">R$ {{ "%.2f"|format(book.price)|replace(".", ",") }}</div>
+{% if book.available %}<div class="availability yes"><strong>Disponível na loja</strong><p>{{ book.stock }} unidade(s) no catálogo demonstrativo.</p></div>{% else %}<div class="availability no"><strong>Indisponível no momento</strong><p>Consulte a livraria sobre a reposição.</p></div>{% endif %}
+<div class="meta"><div><small>Editora</small><strong>{{ book.publisher }}</strong></div><div><small>Ano</small><strong>{{ book.year }}</strong></div><div><small>Categoria</small><strong>{{ book.category }}</strong></div></div>
+<a class="button" href="{{ url_for('catalog.index') }}">← Voltar ao catálogo</a><p class="note">Dados demonstrativos; não representam o estoque real de uma loja.</p></div></section>
+{% endblock %}
